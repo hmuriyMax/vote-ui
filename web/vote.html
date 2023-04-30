@@ -1,0 +1,14 @@
+{{ template "head.html" .}}
+<h1>Голосование</h1>
+<p>Тема голосования: {{.name}}</p>
+{{ range .variants }}
+<div class="tableRow">
+  <div class="voteName">{{.name}}</div>
+  <div class="voteButton header"><a href="/voteform?vote_id={{.id}}">Выбрать</a></div>
+</div>
+{{ else }}
+<div class="tableRow">
+  <div class="no-content">Нет доступных голосований</div>
+</div>
+{{end}}
+{{ template "foot.html" .}}

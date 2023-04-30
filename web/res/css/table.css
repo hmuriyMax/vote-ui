@@ -1,0 +1,34 @@
+.tableRow{
+    display: flex;
+    justify-content: center;
+    background-color: #0000;
+}
+
+.tableRow div:not(:first-child) {
+    border-left: 1px solid #fff5;
+}
+
+.tableRow > * {
+    padding: 5px;
+    height: 2em;
+    display: flex;
+    align-items: center;
+}
+
+.header{
+    justify-content: center;
+    font-weight: bold;
+    border-bottom: 1px solid #fff5;
+}
+
+.voteName{
+    flex-grow: 3;
+}
+
+.voteDue{
+    flex-grow: 1;
+}
+
+.voteButton{
+    flex-grow: 1;
+}

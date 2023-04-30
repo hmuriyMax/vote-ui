@@ -1,0 +1,20 @@
+{{ template "head.html" .}}
+<h1>Привет, {{.username}}!</h1>
+<p>Сейчас тебе доступны следующие голосования:</p>
+<div class="tableRow">
+    <div class="voteName header">Название</div>
+    <div class="voteDue header">Доступно до</div>
+    <div class="voteButton header"></div>
+</div>
+{{ range .votes }}
+<div class="tableRow">
+    <div class="voteName">{{.name}}</div>
+    <div class="voteDue">{{.due}}</div>
+    <div class="voteButton header"><a href="/voteform?vote_id={{.id}}">Принять участие</a></div>
+</div>
+{{ else }}
+<div class="tableRow">
+    <div class="no-content">Нет доступных голосований</div>
+</div>
+{{end}}
+{{ template "foot.html" .}}

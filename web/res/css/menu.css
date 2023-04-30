@@ -1,0 +1,39 @@
+#menu{
+    position: fixed;
+    width: 100vw;
+    height: 60px;
+    top: 0;
+    left: 0;
+    background-color: cornflowerblue;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #000;
+}
+
+.button{
+    position: relative;
+    height:20px;
+    padding: 15px 10px;
+    border-radius: 10px;
+    background-color: #fff0;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5em;
+    transition-duration: 0.5s;
+    letter-spacing: 1px;
+}
+
+.button:hover{
+    color: #fff;
+    font-size: 2em;
+    text-shadow: #000 0 0 20px;
+    letter-spacing: 2px;
+}
+
+.button:hover::after{
+    position: absolute;
+    right: -0.1em;
+    content: '!';
+}
