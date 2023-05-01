@@ -11,6 +11,12 @@ body {
 a{
     color: inherit;
     text-decoration: inherit;
+    border-bottom: 2px solid transparent;
+    transition-duration: 0.2s;
+}
+
+a:hover{
+    border-bottom-color: inherit;
 }
 
 .centerBlock {

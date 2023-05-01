@@ -24,7 +24,6 @@
     display: flex;
     align-items: center;
     font-weight: bold;
-    transition-duration: 0.5s;
     letter-spacing: 1px;
     /*font-size: 1.5em;*/
 }
@@ -33,7 +32,11 @@
     font-size: 1.5em;
 }
 
-.button:hover{
+.button a{
+    transition-duration: 0.4s;
+}
+
+.button a:hover{
     color: #111;
     /*font-size: 1.5em;*/
     text-shadow: #000 0 0 20px;
@@ -44,4 +47,8 @@
     position: absolute;
     right: -0.1em;
     /*content: '!';*/
+}
+
+.button a{
+    border: none;
 }

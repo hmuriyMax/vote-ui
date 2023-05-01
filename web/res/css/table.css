@@ -25,7 +25,7 @@
 .voteDue{
     font-family: 'Consolas', monospace;
     width: 30%;
-    cursor: pointer;
+    cursor: default;
 }
 
 .voteButton{
