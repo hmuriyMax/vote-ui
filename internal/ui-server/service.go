@@ -6,19 +6,29 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	auth "vote-ui/internal/services/auth-service"
+	vote "vote-ui/internal/services/vote-service"
 )
 
 type Server struct {
-	srv http.Server
+	srv         *http.Server
+	voteService *vote.VoteService
+	authService *auth.AuthService
 }
 
-func NewServer(port int) *Server {
+func NewServer(
+	port int,
+	voteService *vote.VoteService,
+	authService *auth.AuthService,
+) *Server {
 	router := gin.Default()
 	sv := &Server{
-		srv: http.Server{
+		srv: &http.Server{
 			Addr:    fmt.Sprintf("localhost:%d", port),
 			Handler: router,
 		},
+		voteService: voteService,
+		authService: authService,
 	}
 	sv.initHandlers(router)
 	return sv
@@ -27,7 +37,9 @@ func NewServer(port int) *Server {
 func (s *Server) initHandlers(router *gin.Engine) {
 	router.LoadHTMLGlob("web/*.html")
 	router.StaticFS("/res/", http.Dir("web/res/"))
+	router.Use(s.auth)
 	router.GET("/", s.index)
+	router.GET("/vote", s.voteForm)
 }
 
 // Start запускает сервер

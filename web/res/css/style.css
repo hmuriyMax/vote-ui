@@ -1,8 +1,11 @@
 body {
-    padding-top: 60px;
     font-family: "Roboto", sans-serif;
     background-color: #222;
-    color: #eee
+    background-image: url("/res/img/IMG_6064.jpg");
+    background-size: cover;
+    color: #eee;
+    margin: 0;
+    padding: 0;
 }
 
 a{
@@ -11,12 +14,41 @@ a{
 }
 
 .centerBlock {
-    margin: 0 auto;
-    max-width: 700px;
+    height: 100vh;
 }
 
 .no-content{
-    color: #af3434;
+    color: #f00;
     font-weight: bold;
     font-family: "Consolas", monospace;
+}
+
+.columns{
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+}
+
+.column {
+    padding: 100px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%
+}
+
+.innerBlock{
+    width: 100%;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    margin: 50px auto;
+}
+
+h1{
+    font-size: 5em;
 }

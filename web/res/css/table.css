@@ -9,26 +9,32 @@
 }
 
 .tableRow > * {
-    padding: 5px;
+    padding: 10px 5px;
     height: 2em;
     display: flex;
     align-items: center;
-}
-
-.header{
+    font-size: 0.8em;
     justify-content: center;
-    font-weight: bold;
-    border-bottom: 1px solid #fff5;
 }
 
 .voteName{
-    flex-grow: 3;
+    width: 50%;
+    justify-content: flex-start;
 }
 
 .voteDue{
-    flex-grow: 1;
+    font-family: 'Consolas', monospace;
+    width: 30%;
+    cursor: pointer;
 }
 
 .voteButton{
-    flex-grow: 1;
+    width: 20%;
+}
+
+.header{
+    font-weight: bold;
+    border-bottom: 1px solid #fff5;
+    font-size: unset;
+    justify-content: center;
 }
