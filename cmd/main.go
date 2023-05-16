@@ -30,8 +30,13 @@ func main() {
 	voteServer := vote.NewVoteService(conn)
 	authServer := auth.NewAuthService(conn)
 
+	err = voteServer.InitPublicKey(ctx)
+	if err != nil {
+		log.Fatalf("fail to init public key: %v", err)
+	}
+
 	app := uiServer.NewServer(8080, voteServer, authServer)
-	
+
 	err = app.Start(ctx)
 	if err != nil {
 		log.Fatalf("ui-server.Start: %v", err)

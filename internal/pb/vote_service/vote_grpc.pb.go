@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	VoteService_Vote_FullMethodName            = "/vote_service.VoteService/Vote"
-	VoteService_GetVotesForUser_FullMethodName = "/vote_service.VoteService/GetVotesForUser"
-	VoteService_GetVoteInfo_FullMethodName     = "/vote_service.VoteService/GetVoteInfo"
+	VoteService_Vote_FullMethodName             = "/vote_service.VoteService/Vote"
+	VoteService_GetVotesForUser_FullMethodName  = "/vote_service.VoteService/GetVotesForUser"
+	VoteService_GetVoteInfo_FullMethodName      = "/vote_service.VoteService/GetVoteInfo"
+	VoteService_GetVotePublicKey_FullMethodName = "/vote_service.VoteService/GetVotePublicKey"
 )
 
 // VoteServiceClient is the client API for VoteService service.
@@ -31,6 +32,7 @@ type VoteServiceClient interface {
 	Vote(ctx context.Context, in *VoteRequest, opts ...grpc.CallOption) (*VoteResponse, error)
 	GetVotesForUser(ctx context.Context, in *GetVotesRequest, opts ...grpc.CallOption) (*GetVotesResponse, error)
 	GetVoteInfo(ctx context.Context, in *GetVoteInfoRequest, opts ...grpc.CallOption) (*GetVoteInfoResponse, error)
+	GetVotePublicKey(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetVotePublicKeyResponse, error)
 }
 
 type voteServiceClient struct {
@@ -68,6 +70,15 @@ func (c *voteServiceClient) GetVoteInfo(ctx context.Context, in *GetVoteInfoRequ
 	return out, nil
 }
 
+func (c *voteServiceClient) GetVotePublicKey(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetVotePublicKeyResponse, error) {
+	out := new(GetVotePublicKeyResponse)
+	err := c.cc.Invoke(ctx, VoteService_GetVotePublicKey_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VoteServiceServer is the server API for VoteService service.
 // All implementations must embed UnimplementedVoteServiceServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type VoteServiceServer interface {
 	Vote(context.Context, *VoteRequest) (*VoteResponse, error)
 	GetVotesForUser(context.Context, *GetVotesRequest) (*GetVotesResponse, error)
 	GetVoteInfo(context.Context, *GetVoteInfoRequest) (*GetVoteInfoResponse, error)
+	GetVotePublicKey(context.Context, *Empty) (*GetVotePublicKeyResponse, error)
 	mustEmbedUnimplementedVoteServiceServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedVoteServiceServer) GetVotesForUser(context.Context, *GetVotes
 }
 func (UnimplementedVoteServiceServer) GetVoteInfo(context.Context, *GetVoteInfoRequest) (*GetVoteInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVoteInfo not implemented")
+}
+func (UnimplementedVoteServiceServer) GetVotePublicKey(context.Context, *Empty) (*GetVotePublicKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVotePublicKey not implemented")
 }
 func (UnimplementedVoteServiceServer) mustEmbedUnimplementedVoteServiceServer() {}
 
@@ -158,6 +173,24 @@ func _VoteService_GetVoteInfo_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VoteService_GetVotePublicKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VoteServiceServer).GetVotePublicKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: VoteService_GetVotePublicKey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VoteServiceServer).GetVotePublicKey(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VoteService_ServiceDesc is the grpc.ServiceDesc for VoteService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var VoteService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetVoteInfo",
 			Handler:    _VoteService_GetVoteInfo_Handler,
+		},
+		{
+			MethodName: "GetVotePublicKey",
+			Handler:    _VoteService_GetVotePublicKey_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

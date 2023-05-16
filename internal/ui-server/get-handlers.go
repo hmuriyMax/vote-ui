@@ -25,9 +25,26 @@ func (s *Server) index(ctx *gin.Context) {
 	})
 }
 
-func (s *Server) voteForm(ctx *gin.Context) {
+func (s *Server) vote(ctx *gin.Context) {
+	uid, tok, err := s.getAuthCookies(ctx)
+	if err != nil {
+		s.internalError(ctx, err)
+		return
+	}
+
+	id := ctx.GetInt64("vote_id")
+
+	vote, err := s.voteService.GetVoteById(ctx, id, uid, tok)
+	if err != nil {
+		s.internalError(ctx, err)
+		return
+	}
+
 	ctx.HTML(http.StatusOK, "vote.html", gin.H{
-		"title": "Vote",
+		"title":    vote.Name,
+		"voteID":   vote.ID,
+		"finishes": vote.FinishesAt,
+		"variants": vote.Variants,
 	})
 }
 

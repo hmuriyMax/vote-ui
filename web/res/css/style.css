@@ -1,8 +1,9 @@
 body {
     font-family: "Roboto", sans-serif;
-    background-color: #222;
+    background-color: #040404;
     background-image: url("/res/img/IMG_6064.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
     color: #eee;
     margin: 0;
     padding: 0;
@@ -20,7 +21,9 @@ a:hover{
 }
 
 .centerBlock {
-    height: 100vh;
+    height: calc(100vh - 50px);
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .no-content{
@@ -32,11 +35,11 @@ a:hover{
 .columns{
     display: flex;
     justify-content: center;
-    min-height: 100%;
+    /*min-height: 100%;*/
 }
 
 .column {
-    padding: 100px;
+    padding: 100px 5%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -52,9 +55,30 @@ a:hover{
 
 h1, h2, h3, h4, h5, h6 {
     text-align: center;
-    margin: 50px auto;
+    margin: 0 auto;
+    padding: 50px;
 }
 
 h1{
     font-size: 5em;
+}
+
+.blackBack{
+    background-color: #222d;
+    backdrop-filter: blur(100px);
+}
+
+.minHeight100 {
+    min-height: 100vh !important;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.topElement{
+    padding-top: 60px;
+}
+
+.monoData{
+    color: cornflowerblue;
+    font-weight: bold;
 }

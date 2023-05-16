@@ -1,14 +1,26 @@
 {{ template "head.html" .}}
-<h1>Голосование</h1>
-<p>Тема голосования: {{.name}}</p>
-{{ range .variants }}
-<div class="tableRow">
-  <div class="voteName">{{.name}}</div>
-  <div class="voteButton header"><a href="/voteform?vote_id={{.id}}">Выбрать</a></div>
+<div class="voteBox blackBack minHeight100">
+  <h2 class="topElement">Голосование</h2>
+  <div>
+  <p>Имя голосования: <span class="monoData">{{.title}}</span></p>
+    <p>Заканчивается: <span class="monoData">{{.finishes}}</span></p>
+  <div class="tableRow">
+    Варианты ответа:
+  </div>
+  <form method="post" action="/send-vote">
+    <input type="hidden" name="voteID" value="{{.voteID}}">
+    {{ range .variants }}
+    <div class="variant">
+      <input type="radio" id="{{.ID}}" name="choice" value="{{.ID}}" checked><label for="{{.ID}}">{{.Name}}</label>
+    </div>
+    {{ else }}
+    <div class="tableRow">
+      <div class="no-content">Нет вариантов для голоса</div>
+    </div>
+    {{end}}
+    <input type="submit" value="Голосовать">
+  </form>
+  </div>
+  <div><h2>&nbsp;</h2></div>
 </div>
-{{ else }}
-<div class="tableRow">
-  <div class="no-content">Нет доступных голосований</div>
-</div>
-{{end}}
 {{ template "foot.html" .}}

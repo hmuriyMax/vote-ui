@@ -18,7 +18,7 @@ type Variant struct {
 
 type VoteVariants struct {
 	Vote
-	variants []*Variant
+	Variants []*Variant
 }
 
 func pbToVote(pb *vote_service.ShortVoteInfo) *Vote {
@@ -30,7 +30,7 @@ func pbToVote(pb *vote_service.ShortVoteInfo) *Vote {
 	if finishes.Local().Day() == day && finishes.Local().Month() == month && finishes.Local().Year() == year {
 		finishesFormat = time.TimeOnly
 	} else {
-		finishesFormat = time.DateOnly
+		finishesFormat = "02.01.2006"
 	}
 
 	return &Vote{
@@ -43,10 +43,10 @@ func pbToVote(pb *vote_service.ShortVoteInfo) *Vote {
 func pbToVoteVariants(pb *vote_service.ExtendedVoteInfo) *VoteVariants {
 	res := &VoteVariants{
 		Vote:     *pbToVote(pb.GetShort()),
-		variants: make([]*Variant, 0, len(pb.Variants)),
+		Variants: make([]*Variant, 0, len(pb.Variants)),
 	}
 	for _, v := range pb.Variants {
-		res.variants = append(res.variants, &Variant{
+		res.Variants = append(res.Variants, &Variant{
 			ID:   v.GetId(),
 			Name: v.GetName(),
 		})

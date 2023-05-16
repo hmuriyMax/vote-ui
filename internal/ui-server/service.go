@@ -39,7 +39,8 @@ func (s *Server) initHandlers(router *gin.Engine) {
 	router.StaticFS("/res/", http.Dir("web/res/"))
 	router.Use(s.auth)
 	router.GET("/", s.index)
-	router.GET("/vote", s.voteForm)
+	router.GET("/vote", s.vote)
+	router.POST("/send-vote", s.postVoteForm)
 }
 
 // Start запускает сервер
