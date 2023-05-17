@@ -3,6 +3,7 @@ package ui_server
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func (s *Server) index(ctx *gin.Context) {
@@ -32,9 +33,13 @@ func (s *Server) vote(ctx *gin.Context) {
 		return
 	}
 
-	id := ctx.GetInt64("vote_id")
+	voteID, err := strconv.ParseInt(ctx.Query("vote_id"), 10, 64)
+	if err != nil {
+		s.internalError(ctx, err)
+		return
+	}
 
-	vote, err := s.voteService.GetVoteById(ctx, id, uid, tok)
+	vote, err := s.voteService.GetVoteById(ctx, voteID, uid, tok)
 	if err != nil {
 		s.internalError(ctx, err)
 		return

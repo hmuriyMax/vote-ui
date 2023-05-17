@@ -1,7 +1,6 @@
 package ui_server
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"strconv"
 	auth "vote-ui/internal/services/auth-service"
@@ -20,9 +19,9 @@ func (s *Server) auth(ctx *gin.Context) {
 func (s *Server) getAuthCookies(ctx *gin.Context) (int64, string, error) {
 	token, _ := ctx.Cookie(auth.CookieName)
 	userId, _ := ctx.Cookie(auth.CookieUserId)
-	parseInt, err := strconv.ParseInt(userId, 10, 64)
-	if err != nil {
-		return 0, "", fmt.Errorf("error parsing user id cookie: %w", err)
-	}
+	parseInt, _ := strconv.ParseInt(userId, 10, 64)
+	//if err != nil {
+	//	return 0, "", fmt.Errorf("error parsing user id cookie: %w", err)
+	//}
 	return parseInt, token, nil
 }
